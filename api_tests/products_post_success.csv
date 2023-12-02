@@ -1,0 +1,29 @@
+import csv
+import random
+import faker
+
+# Initialize Faker to generate dummy data
+fake = faker.Faker()
+
+# Define the number of records to generate
+num_records = 10
+
+# Define the CSV file headers
+headers = ["name", "description", "price"]
+
+# Function to generate a random price
+def generate_price():
+    return round(random.uniform(10, 1000), 2)
+
+# Open a CSV file to write the data
+with open('dummy_data.csv', 'w', newline='') as csvfile:
+    csvwriter = csv.writer(csvfile)
+    # Write the headers
+    csvwriter.writerow(headers)
+    
+    # Generate and write the data rows
+    for _ in range(num_records):
+        name = fake.name()
+        description = fake.text(max_nb_chars=50).replace(',', '')  # Remove commas to comply with CSV format
+        price = generate_price()
+        csvwriter.writerow([name, description, price])

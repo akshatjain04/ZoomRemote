@@ -1,0 +1,6 @@
+id,name,description,price
+1,John Doe,2023-05-26 23:25:03 - GET /api/products - Retrieved 2 products,19.99
+2,,2023-05-26 23:25:14 - GET /api/products/2 - Retrieving product by ID: 2,hello
+3,Jane Smith,2023-05-26 23:25:14 - GET /api/products/2 - Product not found,39.99
+four,Mike Johnson,2023-05-26 23:25:18 - GET /api/products - Retrieving all products,29.99
+5,Emily Davis,2023-05-26 23:25:18 - GET /api/products - Retrieved 1 products,49.99

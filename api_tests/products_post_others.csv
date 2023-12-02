@@ -1,0 +1,44 @@
+import csv
+import random
+import string
+
+# Function to generate a random string
+def random_string(length=10):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))
+
+# Function to generate a random price with inappropriate data types
+def random_price():
+    if random.choice([True, False]):
+        return random.uniform(1, 1000)
+    else:
+        return random_string(5)
+
+# Function to generate a random name with inappropriate data types
+def random_name():
+    if random.choice([True, False]):
+        return random_string(10)
+    else:
+        return random.randint(1000, 9999)
+
+# Function to generate a random description with missing values
+def random_description():
+    if random.choice([True, False, False]):  # Higher chance to skip
+        return random_string(20)
+    else:
+        return ""
+
+# Generate CSV data
+num_records = 10
+headers = ["name", "description", "price"]
+data = []
+
+for _ in range(num_records):
+    row = [random_name(), random_description(), random_price()]
+    data.append(row)
+
+# Write to CSV
+with open('dummy_profiles.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(headers)
+    writer.writerows(data)
