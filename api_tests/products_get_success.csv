@@ -1,0 +1,34 @@
+import csv
+import random
+import string
+from faker import Faker
+
+fake = Faker()
+
+# Function to generate a random string for description
+def random_description(length=100):
+    letters = string.ascii_lowercase + ' '
+    return ''.join(random.choice(letters) for i in range(length))
+
+# Function to generate a random price
+def random_price(min_price=1.00, max_price=1000.00):
+    return round(random.uniform(min_price, max_price), 2)
+
+# Number of records to generate
+num_records = 10
+
+# CSV file headers
+headers = ['id', 'name', 'description', 'price']
+
+# Generate data and write to CSV
+with open('dummy_data.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(headers)
+
+    for _ in range(num_records):
+        writer.writerow([
+            fake.unique.random_int(min=1, max=9999),  # id
+            fake.name(),  # name
+            random_description(),  # description
+            random_price()  # price
+        ])

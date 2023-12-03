@@ -1,0 +1,59 @@
+import random
+import csv
+from io import StringIO
+
+# Define the template
+template = [
+    "2023-05-26 23:25:03 - GET /api/products - Retrieved 2 products",
+    "2023-05-26 23:25:14 - GET /api/products/2 - Retrieving product by ID: {}",
+    "2023-05-26 23:25:14 - GET /api/products/2 - Product not found",
+    "2023-05-26 23:25:18 - GET /api/products - Retrieving all products",
+    "2023-05-26 23:25:18 - GET /api/products - Retrieved 1 products"
+]
+
+# Define the headers
+headers = ["invalidId", "invalidName", "invalidDescription", "invalidPrice"]
+
+# Function to generate random values
+def generate_random_value(field):
+    if field == "invalidId":
+        return random.choice([random.randint(1000, 9999), str(random.random())])
+    elif field == "invalidName":
+        return random.choice([random.randint(1000, 9999), "Name" + str(random.random())])
+    elif field == "invalidDescription":
+        return random.choice([random.randint(1000, 9999), "Description" + str(random.random())])
+    elif field == "invalidPrice":
+        return random.choice([random.randint(-1000, -1), str(random.random())])
+    else:
+        return "N/A"
+
+# Generate the CSV content
+csv_content = StringIO()
+csv_writer = csv.writer(csv_content)
+
+# Write the headers
+csv_writer.writerow(headers)
+
+# Generate and write the data rows
+for _ in range(5):
+    row = []
+    for header in headers:
+        if random.choice([True, False]):
+            row.append(generate_random_value(header))
+        else:
+            row.append('')
+    csv_writer.writerow(row)
+
+# Replace the template placeholders with generated values
+final_output = []
+for line in template:
+    if '{}' in line:
+        line = line.format(generate_random_value("invalidId"))
+    final_output.append(line)
+
+# Print the CSV content
+print(csv_content.getvalue())
+
+# Print the final output
+for line in final_output:
+    print(line)
